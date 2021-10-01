@@ -1,29 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/halfmoon-variables.css" rel="stylesheet" />
     <title>lore.wiki</title>
   </head>
-  <body style="background-color: black; color: white">
+  <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="false" data-sidebar-shortcut-enabled="false" data-set-preferred-theme-onload="true">
 
-    <p>Login</p>
-    <% if (messages.error) { %>
-      <%= messages.error %>
-    <% } %>
-    <form action="/login" method="POST">
-        <div>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required autocomplete="off">
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required autocomplete="off">
-        </div>
-        <br><button type="submit">login</button>
-    </form>
-    <br><a href="/register">Register</a>
+    <!-- First comes the modal -->
+    <div class="modal" id="ui" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          
+          <h4>lore.wiki</h4>
 
-    <script src="/js/halfmoon.min.js"></script>
+          <% if (messages.error) { %>
+            <%= messages.error %>
+          <% } %>
+          
+          <form action="/login" method="POST">
+            <div class="form-group">
+              <input type="text" class="form-control" name="username" placeholder="Username" required autocomplete="off">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" name="password" placeholder="Password" required autocomplete="off">
+            </div>
+            <input class="btn btn-primary btn-block" type="submit" value="Login">
+          </form>
+
+          <br><a href="/register">Register</a>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/register.js"></script>
   </body>
 </html>

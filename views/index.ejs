@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/halfmoon-variables.css" rel="stylesheet" />
     <title>lore.wiki</title>
   </head>
-  <body style="background-color: black; color: white">
+  <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="false" data-sidebar-shortcut-enabled="false" data-set-preferred-theme-onload="true">
 
-    <h1>Hi <%= username %></h1>
-    <form action="/logout?_method=DELETE" method="POST">
-      <button type="submit">Log Out</button>
-    </form>
+    <!-- First comes the modal -->
+    <div class="modal" id="ui" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          
+          <h4>lore.wiki</h4>
+
+          <p>welcome <b><%= username %></b> 😊</p>
+          
+          <form action="/logout?_method=DELETE" method="POST">
+            <input class="btn btn-primary btn-block" type="submit" value="mandatory log out button">
+          </form>
+
+        </div>
+      </div>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/halfmoon.min.js"></script>
     <script src="/js/index.js"></script>
   </body>
 </html>

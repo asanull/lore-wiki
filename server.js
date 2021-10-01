@@ -17,14 +17,15 @@ const methodOverride = require('method-override')
 const moment = require('moment');
 const verbose = true;
 
-const initializePassport = require('./passport-config')
+const initializePassport = require('./utils/passport-config')
 initializePassport(
   passport,
   username => users.find(user => user.username === username),
   id => users.find(user => user.id === id)
 )
-
 const users = []
+//users.find
+//if username OR email exists return false
 
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
@@ -53,23 +54,52 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 }))
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
-  res.render('register.ejs')
+  res.render('register.ejs', {
+    username: null,
+    email: null,
+    password: null,
+    check: false
+  })
 })
 
 app.post('/register', checkNotAuthenticated, async (req, res) => {
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    users.push({
-      id: Date.now().toString(),
-      username: req.body.username,
-      email: req.body.email,
-      password: hashedPassword
-    })
-    res.redirect('/login')
-  } catch {
-    res.redirect('/register')
+  
+  var matchingusernames = 0
+  users.forEach(user =>
+  {if(user.username == req.body.username)matchingusernames++;});
+  var matchingemails = 0
+  users.forEach(user =>
+  {if(user.email == req.body.email)matchingemails++;});
+  
+  if(matchingusernames==0&&matchingemails==0)
+  {
+    try {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10)
+      users.push({
+        id: Date.now().toString(),
+        username: req.body.username,
+        email: req.body.email,
+        password: hashedPassword
+      })
+      res.redirect('/login')
+    } catch (e){
+      res.redirect('/register')
+    }
   }
-  console.log(users)
+  else
+  {
+    var bodyusername = req.body.username
+    var bodyemail = req.body.email
+    if(matchingusernames>0)bodyusername=``
+    if(matchingemails>0)bodyemail=``
+
+    res.render('register.ejs', {
+      username: bodyusername,
+      email: bodyemail,
+      password: req.body.password,
+      check: true
+    })
+  }
 })
 
 app.use(express.static(path.join(__dirname, 'public')));
