@@ -13,7 +13,8 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           
-          <h4>lore.wiki</h4>
+          <h4><b>lore.wiki</b></h4>
+          <h5>Login</h5>
 
           <% if (messages.error) { %>
             <%= messages.error %>
@@ -21,15 +22,17 @@
           
           <form action="/login" method="POST">
             <div class="form-group">
-              <input type="text" class="form-control" name="username" placeholder="Username" required autocomplete="off">
+              <label id="usernamelabel" for="username">Username</label>
+              <input type="text" class="form-control" name="username" required autocomplete="off">
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" name="password" placeholder="Password" required autocomplete="off">
+              <label id="passwordlabel" for="password">Password</label>
+              <input type="password" class="form-control" name="password" required autocomplete="off">
             </div>
-            <input class="btn btn-primary btn-block" type="submit" value="Login">
+            <br><input class="btn btn-primary btn-block" type="submit" value="Login">
           </form>
 
-          <br><a href="/register">Register</a>
+          <br><a href="/register">Need an account?</a>
 
         </div>
       </div>

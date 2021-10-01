@@ -24,8 +24,19 @@ initializePassport(
   id => users.find(user => user.id === id)
 )
 const users = []
-//users.find
-//if username OR email exists return false
+try
+{
+  let rawdata = fs.readFileSync('../logs/users.json');
+  let usersjson = JSON.parse(rawdata);
+  for (var i = 0; i < usersjson.length; i++)
+  {
+    users.push(usersjson[i])
+  }
+}
+catch (e)
+{
+  console.log(e)
+}
 
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
@@ -55,10 +66,11 @@ app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
 
 app.get('/register', checkNotAuthenticated, (req, res) => {
   res.render('register.ejs', {
-    username: null,
+    check: false,
     email: null,
+    username: null,
     password: null,
-    check: false
+    error: 0
   })
 })
 
@@ -75,12 +87,10 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   {
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10)
-      users.push({
-        id: Date.now().toString(),
-        username: req.body.username,
-        email: req.body.email,
-        password: hashedPassword
-      })
+      
+      //add user to database
+      pushUser(req.body.email,req.body.username,hashedPassword)
+
       res.redirect('/login')
     } catch (e){
       res.redirect('/register')
@@ -88,16 +98,17 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   }
   else
   {
-    var bodyusername = req.body.username
-    var bodyemail = req.body.email
-    if(matchingusernames>0)bodyusername=``
-    if(matchingemails>0)bodyemail=``
+    var errorcode = 0
+    if(matchingusernames>0)errorcode=1
+    if(matchingemails>0)errorcode=2
+    if(matchingemails>0&matchingusernames>0)errorcode=3
 
     res.render('register.ejs', {
-      username: bodyusername,
-      email: bodyemail,
+      check: true,
+      email: req.body.email,
+      username: req.body.username,
       password: req.body.password,
-      check: true
+      error: errorcode
     })
   }
 })
@@ -135,6 +146,30 @@ function log(title, message)
   title = title.toUpperCase()
   console.log(`[${title}] ${message}`)
   fs.appendFileSync(`../logs/${file}.log`, `[${title}] ${message} [${moment().format('DD/MM/YYYY][hh:mm')}]\r\n`);
+}
+
+function pushUser(email, username, password)
+{
+  users.push({
+    id: Date.now().toString(),
+    email: email,
+    username: username,
+    password: password
+  })
+
+  fs.readFile('../logs/users.json', function (err, data) {
+    var json = JSON.parse(data);
+    json.push({
+      id: Date.now().toString(),
+      email: email,
+      username: username,
+      password: password
+    });    
+    fs.writeFile("../logs/users.json", JSON.stringify(json), function(err){
+      if (err) throw err;
+      console.log('The "data to append" was appended to file!');
+    });
+  })
 }
 
 const PORT = process.env.PORT || 80;

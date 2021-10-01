@@ -9,11 +9,12 @@
   <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="false" data-sidebar-shortcut-enabled="false" data-set-preferred-theme-onload="true">
     
     <!-- literally here for continuity -->
-    <div style="display: hidden;">
+    <div style="display: none;">
       <div id="check"><%= check %></div>
       <div id="username"><%= username %></div>
       <div id="email"><%= email %></div>
       <div id="password"><%= password %></div>
+      <div id="error"><%= error %></div>
     </div>
 
     <!-- The modal -->
@@ -21,7 +22,8 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           
-          <h4>lore.wiki</h4>
+          <h4><b>lore.wiki</b></h4>
+          <h5>Create an account</h5>
 
           <% if (messages.error) { %>
             <%= messages.error %>
@@ -29,18 +31,21 @@
           
           <form action="/register" method="POST">
             <div class="form-group">
-              <input type="text" class="form-control" name="username" placeholder="Username" required autocomplete="off">
+              <label id="emaillabel" for="email">Email</label>
+              <input type="email" class="form-control" name="email" placeholder="" required autocomplete="off" oninput="clearDanger(this.name)">
             </div>
             <div class="form-group">
-              <input type="email" class="form-control" name="email" placeholder="Email" required autocomplete="off">
+              <label id="usernamelabel" for="username">Username</label>
+              <input type="text" class="form-control" name="username" placeholder="" required autocomplete="off" oninput="clearDanger(this.name)">
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" name="password" placeholder="Password" required autocomplete="off">
+              <label id="passwordlabel" for="password">Password</label>
+              <input type="password" class="form-control" name="password" placeholder="" required autocomplete="off">
             </div>
-            <input class="btn btn-primary btn-block" type="submit" value="Register">
+            <br><input class="btn btn-primary btn-block" type="submit" value="Continue">
           </form>
 
-          <br><a href="/login">Login</a>
+          <br><a href="/login">Already have an account?</a>
 
         </div>
       </div>
