@@ -1,3 +1,6 @@
+// dependencies
+// bcrypt dotenv ejs express express-flash express-session method-override moment nodemon passport passport-local socket.io socketio
+
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }

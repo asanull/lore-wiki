@@ -1,13 +1,21 @@
 {
-  "name": "nodejs-passport-login-master",
+  "name": "lore-wiki",
   "version": "1.0.0",
-  "description": "",
-  "main": "passport-config.js",
+  "description": "\"# lore-wiki\"",
+  "main": "server.js",
   "scripts": {
     "server": "nodemon server"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asanull/lore-wiki.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asanull/lore-wiki/issues"
+  },
+  "homepage": "https://github.com/asanull/lore-wiki#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
