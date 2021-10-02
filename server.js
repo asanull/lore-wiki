@@ -137,7 +137,7 @@ function checkNotAuthenticated(req, res, next) {
 
 io.on('connection', socket =>
 {
-  console.log(`Connection Recieved.`)
+  console.log(`Connection Recieved. at [${moment().format('hh:mm')}]`)
 })
 
 function log(title, message)
@@ -167,7 +167,7 @@ function pushUser(email, username, password)
     });    
     fs.writeFile("../logs/users.json", JSON.stringify(json), function(err){
       if (err) throw err;
-      console.log('The "data to append" was appended to file!');
+      console.log(`User '${username}' was added to users.json at [${moment().format('DD/MM/YYYY][hh:mm')}]`);
     });
   })
 }
