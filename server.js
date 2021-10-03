@@ -57,6 +57,10 @@ app.get('/', checkAuthenticated, (req, res) => {
   res.render('index.ejs', { username: req.user.username })
 })
 
+app.get('/profile', checkAuthenticated, (req, res) => {
+  res.render('profile.ejs', { username: req.user.username, id: req.user.id, avatar: req.user.avatar})
+})
+
 app.get('/login', checkNotAuthenticated, (req, res) => {
   res.render('login.ejs')
 })
@@ -185,3 +189,10 @@ server.listen(PORT, () =>
   console.log(`::`)
 
 }});
+
+io.on('connection', socket =>
+{
+  socket.on('updateAvatar', base64 => {
+    console.log(base64)
+  });
+})

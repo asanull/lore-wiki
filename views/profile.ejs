@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/halfmoon-variables.css" rel="stylesheet" />
+    <title>lore.wiki</title>
+  </head>
+  <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="false" data-sidebar-shortcut-enabled="false" data-set-preferred-theme-onload="true">
+
+    <div name="client" style="display: none;">
+      <span id="username"><%=username%></span>
+      <span id="id"><%=id%></span>
+      <span id="avatar"><%=avatar%></span>
+    </div>
+
+    <!-- First comes the modal -->
+    <div class="modal" id="ui" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          
+          <span style="font-size:x-large">lore.wiki</span>
+          <br>
+          <span style="font-size:large">user: <%=username%></span>
+          <br>
+          <span style="font-size:large">id: <%=id%></span>
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-sm">
+                <div class="custom-file">
+                  <input type="file" id="input" accept=".jpg,.png,.gif">
+                  <label for="input">Change your Avatar</label>
+                </div>
+              </div>
+              <div class="col-sm">
+
+                <canvas id="canvas" class="rounded-circle" width="64px" height="64px" style="display: block;margin-left: auto;margin-right: auto;"></canvas>
+                <button class="btn"type="button" onclick="ctx.drawImage(img,0,0,64,64)">Cancel</button>
+                <button class="btn"type="button" onclick="updateAvatar()">Confirm</button>
+
+              </div>
+            </div>
+          </div>
+          <form action="/profile" method="POST">
+            <input class="btn text-danger" type="submit" value="Remove your Avatar">
+          </form>
+          <br>
+          <form action="/logout?_method=DELETE" method="POST">
+            <input class="btn text-danger" type="submit" value="Sign Out">
+          </form>
+          <br>
+          <button class="btn"type="button"onclick="window.location.href='/'">Back to Homepage</button>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/profile.js"></script>
+  </body>
+</html>

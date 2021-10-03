@@ -15,17 +15,16 @@
           
           <h4>lore.wiki</h4>
 
-          <p>welcome <b><%= username %></b> 😊</p>
-          
-          <form action="/logout?_method=DELETE" method="POST">
-            <input class="btn btn-primary btn-block" type="submit" value="mandatory log out button">
-          </form>
+          <span>welcome <b><%= username %></b> 😊</span>
+
+          <br>
+          <br>
+          <button class="btn"type="button"onclick="window.location.href='/profile'">Edit Profile</button>
 
         </div>
       </div>
     </div>
-
-    <script src="/socket.io/socket.io.js"></script>
+    
     <script src="/js/index.js"></script>
   </body>
 </html>
