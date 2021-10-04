@@ -4,27 +4,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/halfmoon-variables.css" rel="stylesheet" />
+    <link href="/css/lore-wiki.css" rel="stylesheet" />
     <title>lore.wiki</title>
   </head>
-  <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="false" data-sidebar-shortcut-enabled="false" data-set-preferred-theme-onload="true">
-
-    <!-- First comes the modal -->
-    <div class="modal" id="ui" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          
-          <h4>lore.wiki</h4>
-
-          <span>welcome <b><%= username %></b> 😊</span>
-
-          <br>
-          <br>
-          <button class="btn"type="button"onclick="window.location.href='/profile'">Edit Profile</button>
-
-        </div>
-      </div>
+  <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars with-navbar with-sidebar with-navbar-fixed-bottom" data-dm-shortcut-enabled="false" data-sidebar-shortcut-enabled="false" data-set-preferred-theme-onload="true" style="background-color: #1F2226;">
+    
+    <div name="client" style="display: none;">
+      <span id="username"><%=username%></span>
+      <span id="avatar"><%=avatar%></span>
     </div>
     
+    <!-- Page wrapper with navbar, sidebar, and navbar fixed bottom -->
+    <div class="page-wrapper with-navbar with-navbar-fixed-bottom">
+      
+      <!-- Navbar -->
+      <nav class="navbar" style="background-color: #191C20; height: 3rem;">
+        lore.wiki
+      </nav>
+      
+      <!-- Content wrapper -->
+      <div class="content-wrapper">
+        
+        <div class="center homepage rounded">
+          
+          <span style="font-size:x-large">lore.wiki</span>
+          <br>
+          <br>
+          <span style="font-size:large">welcome <%=username%> 😊</span>
+          <br>
+          <br>
+          <canvas id="canvas" class="rounded-circle" width="64px" height="64px"></canvas>
+          <br>
+          <br>
+          <button class="btn"type="button"onclick="window.location.href='/profile'">Edit Profile</button> 
+
+        </div>
+
+      </div>
+
+      <!-- Navbar fixed bottom -->
+      <nav class="navbar navbar-fixed-bottom" style="background-color: #191C20; height: 3rem;">
+        
+      </nav>
+
+    </div>
+  
     <script src="/js/index.js"></script>
+    <!-- incase avatar doesn't initially load -->
+    <script defer>ctx.drawImage(img,0,0,64,64)</script>
   </body>
 </html>
+
+<!-- 
+  <button class="btn"type="button"onclick="window.location.href='/profile'">Edit Profile</button> 
+-->

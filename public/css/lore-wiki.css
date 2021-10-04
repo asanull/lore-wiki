@@ -1,0 +1,35 @@
+.center {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+     /* ty https://stackoverflow.com/users/3367818/noamyg */
+}
+
+.round
+{
+  border-radius: 1rem;
+}
+
+.homepage
+{
+    background-color: #191C20;
+    padding: 2rem;
+    text-align: left;
+    width: 95%;
+    height: 95%;
+}
+
+.profile
+{
+    background-color: #191C20;
+    padding: 2rem;
+    text-align: left;
+    width: 95%;
+    height: 41rem;
+}

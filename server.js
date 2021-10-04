@@ -54,7 +54,7 @@ app.use(passport.session())
 app.use(methodOverride('_method'))
 
 app.get('/', checkAuthenticated, (req, res) => {
-  res.render('index.ejs', { username: req.user.username })
+  res.render('index.ejs', { username: req.user.username, avatar: req.user.avatar})
 })
 
 app.get('/profile', checkAuthenticated, (req, res) => {
@@ -142,11 +142,6 @@ function checkNotAuthenticated(req, res, next) {
   next()
 }
 
-io.on('connection', socket =>
-{
-  console.log(`Connection Recieved. at [${moment().format('hh:mm')}]`)
-})
-
 function log(title, message)
 {
   file = title
@@ -155,13 +150,16 @@ function log(title, message)
   fs.appendFileSync(`../logs/${file}.log`, `[${title}] ${message} [${moment().format('DD/MM/YYYY][hh:mm')}]\r\n`);
 }
 
+const defaultavatar = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gIoSUNDX1BST0ZJTEUAAQEAAAIYAAAAAAIQAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAAHRyWFlaAAABZAAAABRnWFlaAAABeAAAABRiWFlaAAABjAAAABRyVFJDAAABoAAAAChnVFJDAAABoAAAAChiVFJDAAABoAAAACh3dHB0AAAByAAAABRjcHJ0AAAB3AAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAFgAAAAcAHMAUgBHAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAABvogAAOPUAAAOQWFlaIAAAAAAAAGKZAAC3hQAAGNpYWVogAAAAAAAAJKAAAA+EAAC2z3BhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1sdWMAAAAAAAAAAQAAAAxlblVTAAAAIAAAABwARwBvAG8AZwBsAGUAIABJAG4AYwAuACAAMgAwADEANv/bAEMAAwICAwICAwMDAwQDAwQFCAUFBAQFCgcHBggMCgwMCwoLCw0OEhANDhEOCwsQFhARExQVFRUMDxcYFhQYEhQVFP/bAEMBAwQEBQQFCQUFCRQNCw0UFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFP/AABEIAEAAQAMBIgACEQEDEQH/xAAZAAEAAwEBAAAAAAAAAAAAAAAABggJBQf/xAAmEAABAwQCAgICAwAAAAAAAAABAAIDBAUGEQcSCCETFSIxQUJh/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAEDBP/EABYRAQEBAAAAAAAAAAAAAAAAAAABEf/aAAwDAQACEQMRAD8AoIiIuhkIiICIiAiIgIiICLY/xN5n4Cxvxfxa1PynErEfq2NvlrulbBDUT1YjAqXSQyO7ydnh2vRBaWgetAZF5wyxMzXIG4u+eTGhcKgWt9UCJXUnyO+Ev3/bp13/ALtSXVscRF28HZYn5rj7cofPHjRuFOLo+lBMraT5G/MWa/t07a/3S108suZ+Ask8X8ptTMpxK+n6t7bHa7XWwTVEFWYyKZ0cMbu8fV5bv0AGhwPrYK3CRjgiIqgiIgmOA8P5rynR3qqxDGbjkcVmiZLXfXQmV0LXkhn4j8nE9XaDQTprjrQKiMsT4JXxSsdHIxxa5jxotI/YI/gr1LgDyYzrxqv1XcsMrqeOKu+MV9urqcTU1Y2Pt0Dx6cOvd2ixzT7PvRIVqbz5v+PHONFNPzBwbUfel8ZNdYHRSTVHVutvqBJTTNG9gRlzxrXtTaqgkUT55WRRMdJI9wa1jBsuJ/QA/kqXZ9w/mvFlHZarL8ZuOORXmJ8tD9jCYnTNYQH/AIn8mkdm7DgDpzTrRCubZ/N/x44OooZ+H+Daj70PkIrr+6KOan7N1tlQZKmZw3oGMOYNb9qq3P8A5MZ15K36kuWZ11PJFQ/IKC3UNOIaajbJ17hg9uPbo3Ze5x9D3oAJtHlSIiqCIiAiIgIiICIiD//Z"
+
 function pushUser(email, username, password)
 {
   users.push({
     id: Date.now().toString(),
     email: email,
     username: username,
-    password: password
+    password: password,
+    avatar: defaultavatar
   })
 
   fs.readFile('../logs/users.json', function (err, data) {
@@ -170,7 +168,8 @@ function pushUser(email, username, password)
       id: Date.now().toString(),
       email: email,
       username: username,
-      password: password
+      password: password,
+      avatar: defaultavatar
     });    
     fs.writeFile("../logs/users.json", JSON.stringify(json), function(err){
       if (err) throw err;
@@ -192,7 +191,33 @@ server.listen(PORT, () =>
 
 io.on('connection', socket =>
 {
-  socket.on('updateAvatar', base64 => {
-    console.log(base64)
+  console.log(`Connection Recieved. at [${moment().format('hh:mm')}]`)
+
+  socket.on('updateAvatar', data => {
+
+    fs.readFile('../logs/users.json', function (err, file) {
+      var json = JSON.parse(file);
+      var username = undefined
+      for (var user of json) 
+      {
+        if(user.id==data.id)
+        {
+          user.avatar = data.base64
+          username = user.username
+        }
+      }  
+      for (var user of users) 
+      {
+        if(user.id==data.id)
+        {
+          user.avatar = data.base64
+        }
+      }    
+      fs.writeFile("../logs/users.json", JSON.stringify(json), function(err){
+        if (err) throw err;
+        console.log(`User '${username}' updated their avatar. [${moment().format('DD/MM/YYYY][hh:mm')}]`);
+      });
+    })
   });
+
 })

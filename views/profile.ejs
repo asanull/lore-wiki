@@ -4,20 +4,82 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/halfmoon-variables.css" rel="stylesheet" />
+    <link href="/css/lore-wiki.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/b7e9506a51.js" crossorigin="anonymous"></script>
     <title>lore.wiki</title>
   </head>
-  <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="false" data-sidebar-shortcut-enabled="false" data-set-preferred-theme-onload="true">
-
+  <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars with-navbar with-sidebar with-navbar-fixed-bottom" data-dm-shortcut-enabled="false" data-sidebar-shortcut-enabled="false" data-set-preferred-theme-onload="true" style="background-color: #1F2226;">
+    
     <div name="client" style="display: none;">
       <span id="username"><%=username%></span>
       <span id="id"><%=id%></span>
-      <span id="avatar"><%=avatar%></span>
+      <span id="base64"><%=avatar%></span>
     </div>
-
-    <!-- First comes the modal -->
-    <div class="modal" id="ui" tabindex="-1" role="dialog">
+    
+    <!-- change-your-avatar -->
+    <div class="modal" id="change-your-avatar" tabindex="-1" role="dialog" style="backdrop-filter: blur(4px);">
       <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content round shadow" style="max-width: 97.5%;">
+
+          <div class="modal-title mt-20" style="text-align: center; position: relative; bottom: 2.15rem;">
+            <span>Change your Avatar</span>
+          </div>
+          <div style="text-align: center; margin-bottom: 1rem;">
+            <span class="modal-title text-muted" style="font-size: 1.5rem;">
+              Preview
+            </span>
+          </div>
+          <hr>
+          <p>
+            <canvas id="preview" class="rounded-circle" width="128px" height="128px" style="display: block;margin-left: auto;margin-right: auto;"></canvas>
+          </p>
+          <div style="text-align: center; margin-top: 2rem;">
+            <a href="#" class="btn btn-lg round" role="button" style="height: auto;">
+              <span class="modal-title" style="font-size: 1.5rem;">
+                Cancel
+                <i class="fas fa-times text-danger" style="margin-left: 0.5rem;"></i>
+              </span>
+            </a>
+            <span>⠀⠀</span>
+            <a href="#" onclick="setAvatar()" class="btn btn-lg round" role="button" style="height: auto;">
+              <span class="modal-title" style="font-size: 1.5rem;">
+                Apply
+              </span>
+              <i class="fas fa-user-circle" style="font-size: 1.5rem; margin-left: 0.5rem;"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- remove-your-avatar -->
+    <div class="modal" id="remove-your-avatar" tabindex="-1" role="dialog" style="backdrop-filter: blur(4px);">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content round shadow" style="max-width: 97.5%;">
+          <h5 class="modal-title text-danger">Remove your Avatar</h5>
+          <p>
+            This is a potentially dangerous action as it will reset your Current Avatar to the Default Avatar without any undo functionality.
+          </p>
+          <div class="text-right mt-20"> <!-- text-right = text-align: right, mt-20 = margin-top: 2rem (20px) -->
+            <a href="#" class="btn mr-5" role="button">Cancel</a>
+            <a href="#" class="btn text-danger" role="button" onclick="removeAvatar()">I Understand</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Page wrapper with navbar, sidebar, and navbar fixed bottom -->
+    <div class="page-wrapper with-navbar with-navbar-fixed-bottom">
+      
+      <!-- Navbar -->
+      <nav class="navbar" style="background-color: #191C20; height: 3rem;">
+        lore.wiki
+      </nav>
+      
+      <!-- Content wrapper -->
+      <div class="content-wrapper">
+        
+        <div class="center profile round">
           
           <span style="font-size:x-large">lore.wiki</span>
           <br>
@@ -33,17 +95,14 @@
                 </div>
               </div>
               <div class="col-sm">
-
+                
                 <canvas id="canvas" class="rounded-circle" width="64px" height="64px" style="display: block;margin-left: auto;margin-right: auto;"></canvas>
-                <button class="btn"type="button" onclick="ctx.drawImage(img,0,0,64,64)">Cancel</button>
-                <button class="btn"type="button" onclick="updateAvatar()">Confirm</button>
 
               </div>
             </div>
           </div>
-          <form action="/profile" method="POST">
-            <input class="btn text-danger" type="submit" value="Remove your Avatar">
-          </form>
+          <button class="btn text-danger"type="button" onclick="window.location.href=`#remove-your-avatar`">Remove your Avatar</button>
+          <br>
           <br>
           <form action="/logout?_method=DELETE" method="POST">
             <input class="btn text-danger" type="submit" value="Sign Out">
@@ -52,10 +111,19 @@
           <button class="btn"type="button"onclick="window.location.href='/'">Back to Homepage</button>
 
         </div>
+
       </div>
+
+      <!-- Navbar fixed bottom -->
+      <nav class="navbar navbar-fixed-bottom" style="background-color: #191C20; height: 3rem;">
+        
+      </nav>
+
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/profile.js"></script>
+    <!-- incase avatar doesn't initially load -->
+    <script defer>ctx.drawImage(img,0,0,64,64)</script>
   </body>
 </html>
