@@ -41,6 +41,7 @@ catch (e)
   console.log(e)
 }
 
+app.set('trust proxy', 1)
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use(flash())
