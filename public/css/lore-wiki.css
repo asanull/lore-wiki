@@ -23,6 +23,8 @@
     text-align: left;
     width: 95%;
     height: 95%;
+    max-width: 95%;
+    max-height: 95%;
 }
 
 .profile
@@ -30,6 +32,30 @@
     background-color: #191C20;
     padding: 2rem;
     text-align: left;
-    width: 95%;
-    height: 41rem;
+    width: 50rem;
+    height: 34rem;
+    max-width: 95%;
+    max-height: 95%;
+}
+
+.login
+{
+    background-color: #191C20;
+    padding: 3rem;
+    text-align: left;
+    width: 41rem;
+    height: 43rem;
+    max-width: 95%;
+    max-height: 95%;
+}
+
+.register
+{
+    background-color: #191C20;
+    padding: 3rem;
+    text-align: left;
+    width: 41rem;
+    height: 51rem;
+    max-width: 95%;
+    max-height: 95%;
 }

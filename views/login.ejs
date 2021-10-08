@@ -4,14 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/halfmoon-variables.css" rel="stylesheet" />
+    <link href="/css/lore-wiki.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/b7e9506a51.js" crossorigin="anonymous"></script>
     <title>lore.wiki</title>
   </head>
-  <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="false" data-sidebar-shortcut-enabled="false" data-set-preferred-theme-onload="true">
+  <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars with-navbar with-sidebar with-navbar-fixed-bottom" data-dm-shortcut-enabled="false" data-sidebar-shortcut-enabled="false" data-set-preferred-theme-onload="true" style="background-color: #1F2226;">
 
-    <!-- First comes the modal -->
-    <div class="modal" id="ui" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
+    <!-- Page wrapper with navbar, sidebar, and navbar fixed bottom -->
+    <div class="page-wrapper with-navbar with-navbar-fixed-bottom">
+      
+      <!-- Navbar -->
+      <nav class="navbar" style="background-color: #191C20; height: 3rem;">
+        lore.wiki
+      </nav>
+      
+      <!-- Content wrapper -->
+      <div class="content-wrapper">
+        
+        <div class="center login round">
           
           <h4><b>lore.wiki</b></h4>
           <h5>Login</h5>
@@ -35,7 +45,14 @@
           <br><a href="/register">Need an account?</a>
 
         </div>
+
       </div>
+
+      <!-- Navbar fixed bottom -->
+      <nav class="navbar navbar-fixed-bottom" style="background-color: #191C20; height: 3rem;">
+        
+      </nav>
+
     </div>
 
     <script src="/js/register.js"></script>

@@ -80,35 +80,40 @@
       <div class="content-wrapper">
         
         <div class="center profile round">
-          
-          <span style="font-size:x-large">lore.wiki</span>
-          <br>
-          <span style="font-size:large">user: <%=username%></span>
-          <br>
-          <span style="font-size:large">id: <%=id%></span>
           <div class="container-fluid">
             <div class="row align-items-center">
-              <div class="col-sm">
+              <div class="col-6">
+          
+                <span style="font-size:x-large">lore.wiki</span>
+                <br>
+                <span style="font-size:large">user: <%=username%></span>
+                <br>
+                <span style="font-size:large">id: <%=id%></span>
+                <br>
+                <br>
                 <div class="custom-file">
                   <input type="file" id="input" accept=".jpg,.png,.gif">
                   <label for="input">Change your Avatar</label>
                 </div>
+                <br>
+                <button class="btn text-danger"type="button" onclick="window.location.href=`#remove-your-avatar`">Remove your Avatar</button>
+                <br>
+                <br>
+                <form action="/logout?_method=DELETE" method="POST">
+                  <input class="btn text-danger" type="submit" value="Sign Out">
+                </form>
+                <br>
+                <button class="btn"type="button"onclick="window.location.href='/'">
+                  <i class="fas fa-chevron-left" style="font-size: small; margin-right: .5rem;"></i> Back to Homepage
+                </button>
               </div>
-              <div class="col-sm">
+              <div class="col-6">
                 
-                <canvas id="canvas" class="rounded-circle" width="64px" height="64px" style="display: block;margin-left: auto;margin-right: auto;"></canvas>
+                <canvas id="canvas" class="rounded-circle" width="128px" height="128px" style="display: block;margin-left: auto;margin-right: auto;"></canvas>
 
               </div>
             </div>
           </div>
-          <button class="btn text-danger"type="button" onclick="window.location.href=`#remove-your-avatar`">Remove your Avatar</button>
-          <br>
-          <br>
-          <form action="/logout?_method=DELETE" method="POST">
-            <input class="btn text-danger" type="submit" value="Sign Out">
-          </form>
-          <br>
-          <button class="btn"type="button"onclick="window.location.href='/'">Back to Homepage</button>
 
         </div>
 
@@ -124,6 +129,6 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/profile.js"></script>
     <!-- incase avatar doesn't initially load -->
-    <script defer>ctx.drawImage(img,0,0,64,64)</script>
+    <script defer>ctx.drawImage(img,0,0,128,128)</script>
   </body>
 </html>

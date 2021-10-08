@@ -1,4 +1,3 @@
-window.location.href = "#ui"
 try
 {
     if(document.getElementById("check").innerText=="true")

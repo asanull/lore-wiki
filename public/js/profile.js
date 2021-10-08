@@ -60,7 +60,7 @@ function setAvatar()
         var scale=Math.min((maxW/iw),(maxH/ih));
         var iwScaled=iw*scale;
         var ihScaled=ih*scale;
-        ctx.drawImage(newimg,0,0,64,64);
+        ctx.drawImage(newimg,0,0,128,128);
     }
     newimg.src = base64
     updateAvatar()
@@ -77,7 +77,7 @@ function removeAvatar()
         var scale=Math.min((maxW/iw),(maxH/ih));
         var iwScaled=iw*scale;
         var ihScaled=ih*scale;
-        ctx.drawImage(deafultimg,0,0,64,64);
+        ctx.drawImage(deafultimg,0,0,128,128);
     }
 
     deafultimg.src = base64
