@@ -5122,8 +5122,6 @@ Notes:
     -moz-box-shadow: var(--lm-button-box-shadow);
     -webkit-box-shadow: var(--lm-button-box-shadow);
     box-shadow: var(--lm-button-box-shadow);
-
-    transition: .5s ease-out;
 }
 .btn:hover {
     text-decoration: none;
