@@ -25,26 +25,45 @@
       <!-- Content wrapper -->
       <div class="content-wrapper">
         
-        <div class="center homepage rounded">
+        <div class="center homepage round h-full" id="homepage">
           
-          <span style="font-size:x-large">lore.wiki</span>
-          <br>
-          <br>
-          <span style="font-size:large">welcome <%=username%> 😊</span>
-          <br>
-          <br>
-          <canvas id="canvas" class="rounded-circle" width="64px" height="64px"></canvas>
-          <br>
-          <br>
-          <button class="btn"type="button"onclick="window.location.href='/profile'">Edit Profile</button> 
+          <div class="container-fluid">
+            <div class="row">
 
+              <div class="col-xl-2">
+                      
+                <span style="font-size:x-large">lore.wiki</span>
+                <br>
+                <br>
+                <span style="font-size:large">welcome <%=username%> 😊</span>
+                <br>
+                <br>
+                <canvas id="canvas" class="rounded-circle" width="64px" height="64px"></canvas>
+                <br>
+                <br>
+                <button class="btn"type="button"onclick="window.location.href='/profile'">Edit Profile</button> 
+
+              </div>
+
+              <div class="col-xl-10 homepage-content overflow-y-scroll" id="homepage-content">
+                
+                <span>
+                  flex is the answer
+                  <br>
+                  look into flex
+                </span>
+                
+              </div>
+            </div>
+
+          </div>
         </div>
 
       </div>
 
       <!-- Navbar fixed bottom -->
-      <nav class="navbar navbar-fixed-bottom" style="background-color: #191C20; height: 3rem;">
-        
+      <nav class="navbar navbar-fixed-bottom text-muted" style="background-color: #191C20; height: 3rem;">
+        rights reserved etc
       </nav>
 
     </div>
