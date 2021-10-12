@@ -8,29 +8,18 @@
     <title>lore.wiki</title>
   </head>
   <body class="dark-mode with-custom-webkit-scrollbars with-custom-css-scrollbars with-navbar with-sidebar with-navbar-fixed-bottom" data-dm-shortcut-enabled="false" data-sidebar-shortcut-enabled="false" data-set-preferred-theme-onload="true" style="background-color: #1F2226;">
-    
     <div name="client" style="display: none;">
       <span id="username"><%=username%></span>
       <span id="avatar"><%=avatar%></span>
     </div>
-    
-    <!-- Page wrapper with navbar, sidebar, and navbar fixed bottom -->
     <div class="page-wrapper with-navbar with-navbar-fixed-bottom">
-      
-      <!-- Navbar -->
       <nav class="navbar" style="background-color: #191C20; height: 3rem;">
         lore.wiki
       </nav>
-      
-      <!-- Content wrapper -->
       <div class="content-wrapper">
-        
         <div class="center homepage round h-full" id="homepage">
-          
-          <div class="homepage-profile">
-                      
+          <div class="homepage-profile">    
             <div class="container-fluid">
-              
               <div class="row">
                 <div class="col-auto">
 
@@ -45,11 +34,8 @@
 
                 </div>
               </div>
-
             </div>
-
           </div>
-
           <div class="homepage-content" id="homepage-content">
             
             <span>
@@ -59,38 +45,13 @@
             </span>
             
           </div>
-
         </div>
-
       </div>
-
-      <!-- Navbar fixed bottom -->
       <nav class="navbar navbar-fixed-bottom text-muted" style="background-color: #191C20; height: 3rem;">
         rights reserved etc
       </nav>
-
     </div>
-  
     <script src="/js/index.js"></script>
-    <!-- incase avatar doesn't initially load -->
     <script defer>logResize()</script>
   </body>
 </html>
-
-<!-- 
-  <button class="btn"type="button"onclick="window.location.href='/profile'">Edit Profile</button> 
--
-  <span style="font-size:x-large">Homepage</span>
-                <br>
-                <br>
-                <span style="font-size:large">welcome <%=username%> 😊</span>
-                <br>
-                <br>
-                <canvas id="canvas" class="rounded-circle" width="64px" height="64px"></canvas>
-                <br>
-                <br>
-                <button class="btn"type="button"onclick="window.location.href='/profile'">Edit Profile</button> 
-                <br>
-                <br>
-
-->
