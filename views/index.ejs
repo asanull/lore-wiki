@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/halfmoon-variables.css" rel="stylesheet" />
     <link href="/css/lore-wiki.css" rel="stylesheet" />
+    <link href="/css/homepage.css" rel="stylesheet" />
     <title>lore.wiki</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
@@ -22,24 +23,92 @@
       </nav>
       <div class="content-wrapper">
         <div class="center homepage round h-full" id="homepage">
-          <div class="homepage-profile">    
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-auto">
+          
+          <div class="container-fluid">
+            <div class="row">
 
-                  <canvas id="canvas" class="rounded-circle" width="64px" height="64px" style="margin: .5rem; margin-left: 0;"></canvas>
-
+              <div class="col">
+                <div class="homepage-profile">    
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-auto">
+      
+                        <canvas id="canvas" class="rounded-circle" width="64px" height="64px" style="margin: .5rem; margin-left: 0;"></canvas>
+      
+                      </div>
+                      <div class="col" style="margin: 1rem; margin-top: 2rem;">
+      
+                        <span><%=username%></span>
+      
+                        <button class="btn"type="button"onclick="window.location.href='/profile'" style="float: right;">Edit Profile</button> 
+      
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mobile">
+                  
+                    <div class="container-fluid">
+                      
+                      <div class="row" style="text-align: center;">
+                        <div class="col tab-button">
+                          Button
+                        </div>
+                        <div class="col tab-button">
+                          Button
+                        </div>
+                        <div class="col tab-button">
+                          Button
+                        </div>
+                        <div class="col tab-button">
+                          Button
+                        </div>
+                      </div>
+  
+                    </div>
+                  </div>
                 </div>
-                <div class="col" style="margin: 1rem; margin-top: 2rem;">
+              </div>
+              
+              <div class="col-auto">
+                <div class="homepage-tab desktop" id="homepage-tab">
+                  
+                  <div class="container-fluid">
+                    
+                    <div class="row" style="text-align: center;">
+                      <div class="col">
+                        
+                        <div class="row" style="text-align: center;">
+                          <div class="col-md-6 tab-button">
+                            Button
+                          </div>
+                          <div class="col-md-6 tab-button">
+                            Button
+                          </div>
+                        </div>
 
-                  <span><%=username%></span>
+                      </div>
+                      <div class="col">
+                        
+                        <div class="row" style="text-align: center;">
+                          <div class="col-md-6 tab-button">
+                            Button
+                          </div>
+                          <div class="col-md-6 tab-button">
+                            Button
+                          </div>
+                        </div>
 
-                  <button class="btn"type="button"onclick="window.location.href='/profile'" style="float: right;">Edit Profile</button> 
+                      </div>
+                    </div>
+
+                  </div>
 
                 </div>
               </div>
+
             </div>
           </div>
+
           <div class="homepage-content" id="homepage-content">
             
             <span>

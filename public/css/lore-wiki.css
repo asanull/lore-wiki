@@ -20,15 +20,6 @@
     margin-left: 1.5rem;
     margin-right: 1.5rem;
 }
-.profile {
-    background-color: #191C20;
-    padding: 2rem;
-    text-align: left;
-    width: 50rem;
-    height: 35rem;
-    max-width: 95%;
-    max-height: 95%;
-}
 .login {
     background-color: #191C20;
     padding: 3rem;
@@ -47,22 +38,6 @@
     max-width: 95%;
     max-height: 95%;
 }
-.homepage-profile {
-    border-radius: 1rem;
-    background-color: #1F2226;
-    padding: 1.5rem;
-
-    height: 10rem;
-    margin-bottom: 2rem;
-    max-width: 35rem;
-}
-.homepage-content {
-    border-radius: 1rem;
-    background-color: #1F2226;
-    padding: 1.5rem;
-
-    height: 76%;
-}
 @font-face {
     font-family: 'Whitney Medium';
     font-style: normal;
@@ -71,4 +46,21 @@
 }
 body {
     font-family:'Whitney Medium'
+}
+.mobile
+{
+    display:block;
+}
+.desktop
+{
+    display:none
+}
+
+@media (min-width: 700px) {
+    .mobile {
+        display:none 
+    }
+    .desktop {
+        display:block 
+    }
 }

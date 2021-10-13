@@ -1,0 +1,33 @@
+.profile-profile {
+    border-radius: 1rem;
+    background-color: #1F2226;
+    padding: 1.5rem;
+
+    height: 10rem;
+    margin-bottom: 2rem;
+    max-width: 430px;
+}
+
+.profile-card {
+    background-color: #191C20;
+    padding: 2rem;
+    text-align: left;
+    width: 473px;
+    height: 44rem;
+    max-width: 95%;
+    max-height: 95%;
+}
+
+.profile-content {
+    border-radius: 1rem;
+    background-color: #1F2226;
+    padding: 1.5rem;
+
+    height: 22.25rem;
+}
+
+@media (min-width: 1920px) {
+    .profile-card {
+        height: 43rem;
+    }
+}

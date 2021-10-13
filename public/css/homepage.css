@@ -1,0 +1,43 @@
+.homepage-profile {
+    border-radius: 1rem;
+    background-color: #1F2226;
+    padding: 1.5rem;
+
+    height: 13rem;
+    margin-bottom: 2rem;
+    max-width: 430px;
+}
+.homepage-tab {
+    border-radius: 1rem;
+    background-color: #1F2226;
+    padding: 1.5rem;
+
+    height: 10rem;
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+}
+.tab-button {
+    line-height: 1.6;
+}
+.homepage-content {
+    border-radius: 1rem;
+    background-color: #1F2226;
+    padding: 1.5rem;
+
+    height: 50%;
+}
+
+@media (min-width: 700px) {
+    .homepage-profile {
+        height: 10rem;
+    }
+    .tab-button {
+        line-height: 2.5;
+    }
+}
+
+@media (min-width: 769px) {
+    .tab-button {
+        line-height: 4.75;
+    }
+}

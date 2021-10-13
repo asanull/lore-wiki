@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/halfmoon-variables.css" rel="stylesheet" />
     <link href="/css/lore-wiki.css" rel="stylesheet" />
+    <link href="/css/profile.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/b7e9506a51.js" crossorigin="anonymous"></script>
     <title>lore.wiki</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
@@ -83,41 +84,46 @@
       <!-- Content wrapper -->
       <div class="content-wrapper">
         
-        <div class="center profile round">
+        <div class="center profile-card round">
           
-          <div class="container-fluid">
-            <div class="row align-items-center">
-              <div class="col-6">
+          <span style="font-size:x-large">Edit Profile</span>
+          <br>
+          <br>
           
-                <span style="font-size:x-large">Edit Profile</span>
-                <br>
-                <span style="font-size:large">user: <%=username%></span>
-                <br>
-                <span style="font-size:large">id: <%=id%></span>
-                <br>
-                <br>
-                <div class="custom-file">
-                  <input type="file" id="input" accept=".jpg,.png,.gif">
-                  <label for="input">Change your Avatar</label>
-                </div>
-                <br>
-                <button class="btn text-danger"type="button" onclick="window.location.href=`#remove-your-avatar`">Remove your Avatar</button>
-                <br>
-                <br>
-                <form action="/logout?_method=DELETE" method="POST">
-                  <input class="btn text-danger" type="submit" value="Sign Out">
-                </form>
-                <br>
-                <button class="btn"type="button"onclick="window.location.href='/'">
-                  <i class="fas fa-chevron-left" style="font-size: small; margin-right: .5rem;"></i> Back to Homepage
-                </button>
-              </div>
-              <div class="col-6">
-                
-                <canvas id="canvas" class="rounded-circle" width="128px" height="128px" style="display: block;margin-left: auto;margin-right: auto;"></canvas>
+          <div class="profile-profile">    
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-auto">
 
+                  <canvas id="canvas" class="rounded-circle" width="64px" height="64px" style="margin: .5rem; margin-left: 0;"></canvas>
+
+                </div>
+                <div class="col" style="margin: 1rem; margin-top: 2rem;">
+
+                  <span><%=username%></span>
+
+                </div>
               </div>
             </div>
+          </div>
+
+          <div class="profile-content" id="homepage-content">
+
+            <div class="custom-file" style="margin-bottom: 1.5rem;">
+              <input type="file" id="input" accept=".jpg,.png,.gif">
+              <label for="input">Change your Avatar</label>
+            </div>
+            <button class="btn text-danger"type="button" onclick="window.location.href=`#remove-your-avatar`">Remove your Avatar</button>
+            <br>
+            <br>
+            <form action="/logout?_method=DELETE" method="POST">
+              <input class="btn text-danger" type="submit" value="Sign Out">
+            </form>
+            <br>
+            <button class="btn"type="button"onclick="window.location.href='/'">
+              <i class="fas fa-chevron-left" style="font-size: small; margin-right: .5rem;"></i> Back to Homepage
+            </button>
+            
           </div>
 
         </div>
@@ -134,6 +140,6 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/profile.js"></script>
     <!-- incase avatar doesn't initially load -->
-    <script defer>ctx.drawImage(img,0,0,128,128)</script>
+    <script defer>logResize()</script>
   </body>
 </html>
