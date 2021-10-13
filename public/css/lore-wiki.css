@@ -13,13 +13,6 @@
 .round {
   border-radius: 1rem;
 }
-.homepage {
-    background-color: #191C20;
-    padding: 2rem;
-    text-align: left;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-}
 .login {
     background-color: #191C20;
     padding: 3rem;
