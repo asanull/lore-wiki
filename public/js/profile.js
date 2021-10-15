@@ -10,6 +10,8 @@ var img = new Image();
 var base64 = client.avatar.innerText
 img.src = base64
 
+var ctxScale = 64;
+
 var canvas=document.getElementById("canvas");
 var ctx=canvas.getContext("2d");
 var cw=canvas.width;
@@ -60,7 +62,7 @@ function setAvatar()
         var scale=Math.min((maxW/iw),(maxH/ih));
         var iwScaled=iw*scale;
         var ihScaled=ih*scale;
-        ctx.drawImage(newimg,0,0,64,64);
+        ctx.drawImage(newimg,0,0,ctxScale,ctxScale);
     }
     newimg.src = base64
     updateAvatar()
@@ -77,7 +79,7 @@ function removeAvatar()
         var scale=Math.min((maxW/iw),(maxH/ih));
         var iwScaled=iw*scale;
         var ihScaled=ih*scale;
-        ctx.drawImage(deafultimg,0,0,64,64);
+        ctx.drawImage(deafultimg,0,0,ctxScale,ctxScale);
     }
 
     deafultimg.src = base64
@@ -94,6 +96,7 @@ function render(scale) {
     canvas.width = scale
     canvas.height = scale
     ctx.drawImage(img,0,0,scale,scale)
+    ctxScale = scale
 }
 function logResize() {
     if(window.innerWidth>1917)
