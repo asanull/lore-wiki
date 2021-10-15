@@ -43,7 +43,7 @@ function scaleContent() {
     else if(window.innerWidth>=700)
     { height = window.innerHeight - 260 }
     else
-    { height = window.innerHeight - 290 }
+    { height = window.innerHeight - 310 }
     content.style.height = `${height}px`
 }
 function logResize() {

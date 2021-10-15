@@ -10,7 +10,7 @@
     background-color: #1F2226;
     padding: 1.5rem;
 
-    height: 13rem;
+    height: 15rem;
     margin-bottom: 2rem;
     max-width: 430px;
 }
@@ -22,6 +22,9 @@
     height: 10rem;
     margin-bottom: 2rem;
     margin-left: 2rem;
+}
+.desktop-buttons {
+    margin-top: 1rem;
 }
 .tab-button {
     line-height: 1.6;
@@ -37,12 +40,18 @@
         height: 10rem;
     }
     .tab-button {
-        line-height: 2.5;
+        line-height: 1.5;
+    }
+    .desktop-buttons {
+        margin-top: -.5rem;
     }
 }
 
 @media (min-width: 769px) {
     .tab-button {
-        line-height: 4.75;
+        line-height: 2;
+    }
+    .desktop-buttons {
+        margin-top: 1rem;
     }
 }
