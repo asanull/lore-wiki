@@ -54,8 +54,13 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 
-app.get('/', checkAuthenticated, (req, res) => {
-  res.render('index.ejs', { username: req.user.username, avatar: req.user.avatar})
+app.get('/', (req, res) => {
+  try {
+    res.render('index.ejs', { username: req.user.username, avatar: req.user.avatar})
+  }
+  catch {
+    res.render('index.ejs', { username: null, avatar: defaultavatar})
+  }
 })
 
 app.get('/profile', checkAuthenticated, (req, res) => {
@@ -174,7 +179,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.delete('/logout', (req, res) => {
   req.logOut()
-  res.redirect('/login')
+  res.redirect('/')
 })
 
 function checkAuthenticated(req, res, next) {
