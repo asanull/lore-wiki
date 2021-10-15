@@ -30,8 +30,6 @@
     border-radius: 1rem;
     background-color: #1F2226;
     padding: 1.5rem;
-
-    height: 50%;
 }
 
 @media (min-width: 700px) {

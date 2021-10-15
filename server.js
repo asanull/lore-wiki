@@ -121,7 +121,56 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
   }
 })
 
-app.use(express.static(path.join(__dirname, 'public')));
+function findFile(filename, filetype)
+{
+  return path.join(__dirname, `./public/${filetype}`, `${filename}.${filetype}`)
+
+}
+
+// CSS Files
+app.get('/css/halfmoon.css', (req, res) => {
+  res.sendFile(findFile('halfmoon','css'))
+})
+app.get('/css/lore-wiki.css', (req, res) => {
+  res.sendFile(findFile('lore-wiki','css'))
+
+})
+app.get('/css/homepage.css', (req, res) => {
+  res.sendFile(findFile('homepage','css'))
+})
+app.get('/css/profile.css', (req, res) => {
+  res.sendFile(findFile('profile','css'))
+})
+
+// Font File
+app.get('/woff/whitneymedium.woff', (req, res) => {
+  res.sendFile(findFile('whitneymedium','woff'))
+})
+
+// Manifest File
+app.get('/icon/site.webmanifest', (req, res) => {
+  res.sendFile(path.join(__dirname, `./public/icon`, `/site.webmanifest`))
+})
+
+// JS Files
+app.get('/js/halfmoon.min.js', (req, res) => {
+  res.sendFile(findFile('halfmoon.min','js'))
+})
+app.get('/js/index.js', (req, res) => {
+  res.sendFile(findFile('index','js'))
+})
+app.get('/js/profile.js', (req, res) => {
+  res.sendFile(findFile('profile','js'))
+})
+app.get('/js/register.js', (req, res) => {
+  res.sendFile(findFile('register','js'))
+})
+
+app.get('/*', (req, res) => {
+  res.render('error.ejs')
+})
+
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.delete('/logout', (req, res) => {
   req.logOut()
@@ -192,7 +241,7 @@ server.listen(PORT, () =>
 
 io.on('connection', socket =>
 {
-  console.log(`Connection Recieved. at [${moment().format('hh:mm')}]`)
+  console.log(`Connection Recieved at [${moment().format('hh:mm')}]`)
 
   socket.on('updateAvatar', data => {
 

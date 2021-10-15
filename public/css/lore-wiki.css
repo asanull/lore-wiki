@@ -35,7 +35,7 @@
     font-family: 'Whitney Medium';
     font-style: normal;
     font-weight: normal;
-    src: local('Whitney Medium'), url('/fonts/whitneymedium.woff') format('woff');
+    src: local('Whitney Medium'), url('/woff/whitneymedium.woff') format('woff');
 }
 body {
     font-family:'Whitney Medium'
