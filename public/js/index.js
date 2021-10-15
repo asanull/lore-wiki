@@ -1,10 +1,8 @@
 var guest = false;
-
 const client = {
     username: document.getElementById('username').innerText,
     avatar: document.getElementById('avatar')
 }
-
 if(client.username!='')
 {
     var img = new Image();
@@ -23,7 +21,6 @@ else
     document.getElementById('profile-button').innerText = "Login"
     document.getElementById('profile-button').href = "/login"
 }
-
 var canvas=document.getElementById("canvas");
 var ctx=canvas.getContext("2d");
 function render(scale) {
