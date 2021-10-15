@@ -26,10 +26,10 @@ initializePassport(
   username => users.find(user => user.username === username),
   id => users.find(user => user.id === id)
 )
-const users = []
+var users = []
 try
 {
-  let rawdata = fs.readFileSync('../logs/users.json');
+  let rawdata = fs.readFileSync('../data/users.json');
   let usersjson = JSON.parse(rawdata);
   for (var i = 0; i < usersjson.length; i++)
   {
@@ -54,17 +54,31 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 
+function getAvatar(id) {
+
+  let rawdata = fs.readFileSync(path.resolve(`../data/users/${id}.json`))
+  let user = JSON.parse(rawdata)
+  return user.data[0].avatar
+
+}
+
 app.get('/', (req, res) => {
-  try {
-    res.render('index.ejs', { username: req.user.username, avatar: req.user.avatar})
+  
+  if(req.user!=undefined) {
+    try {
+      res.render('index.ejs', { username: req.user.username, avatar: getAvatar(req.user.id)})
+    } catch (error) {
+      res.render('error.ejs')
+      console.log(error)
+    }
   }
-  catch {
+  else {
     res.render('index.ejs', { username: null, avatar: defaultavatar})
   }
 })
 
 app.get('/profile', checkAuthenticated, (req, res) => {
-  res.render('profile.ejs', { username: req.user.username, id: req.user.id, avatar: req.user.avatar})
+  res.render('profile.ejs', { username: req.user.username, id: req.user.id, avatar: getAvatar(req.user.id)})
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
@@ -138,13 +152,15 @@ app.get('/css/halfmoon.css', (req, res) => {
 })
 app.get('/css/lore-wiki.css', (req, res) => {
   res.sendFile(findFile('lore-wiki','css'))
-
 })
 app.get('/css/homepage.css', (req, res) => {
   res.sendFile(findFile('homepage','css'))
 })
 app.get('/css/profile.css', (req, res) => {
   res.sendFile(findFile('profile','css'))
+})
+app.get('/css/error.css', (req, res) => {
+  res.sendFile(findFile('error','css'))
 })
 
 // Font File
@@ -202,39 +218,45 @@ function log(title, message)
   file = title
   title = title.toUpperCase()
   console.log(`[${title}] ${message}`)
-  fs.appendFileSync(`../logs/${file}.log`, `[${title}] ${message} [${moment().format('DD/MM/YYYY][hh:mm')}]\r\n`);
+  fs.appendFileSync(`../data/${file}.log`, `[${title}] ${message} [${moment().format('DD/MM/YYYY][hh:mm')}]\r\n`);
 }
 
 const defaultavatar = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gIoSUNDX1BST0ZJTEUAAQEAAAIYAAAAAAIQAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAAHRyWFlaAAABZAAAABRnWFlaAAABeAAAABRiWFlaAAABjAAAABRyVFJDAAABoAAAAChnVFJDAAABoAAAAChiVFJDAAABoAAAACh3dHB0AAAByAAAABRjcHJ0AAAB3AAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAFgAAAAcAHMAUgBHAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAABvogAAOPUAAAOQWFlaIAAAAAAAAGKZAAC3hQAAGNpYWVogAAAAAAAAJKAAAA+EAAC2z3BhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1sdWMAAAAAAAAAAQAAAAxlblVTAAAAIAAAABwARwBvAG8AZwBsAGUAIABJAG4AYwAuACAAMgAwADEANv/bAEMAAwICAwICAwMDAwQDAwQFCAUFBAQFCgcHBggMCgwMCwoLCw0OEhANDhEOCwsQFhARExQVFRUMDxcYFhQYEhQVFP/bAEMBAwQEBQQFCQUFCRQNCw0UFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFP/AABEIAEAAQAMBIgACEQEDEQH/xAAZAAEAAwEBAAAAAAAAAAAAAAAABggJBQf/xAAmEAABAwQCAgICAwAAAAAAAAABAAIDBAUGEQcSCCETFSIxQUJh/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAEDBP/EABYRAQEBAAAAAAAAAAAAAAAAAAABEf/aAAwDAQACEQMRAD8AoIiIuhkIiICIiAiIgIiICLY/xN5n4Cxvxfxa1PynErEfq2NvlrulbBDUT1YjAqXSQyO7ydnh2vRBaWgetAZF5wyxMzXIG4u+eTGhcKgWt9UCJXUnyO+Ev3/bp13/ALtSXVscRF28HZYn5rj7cofPHjRuFOLo+lBMraT5G/MWa/t07a/3S108suZ+Ask8X8ptTMpxK+n6t7bHa7XWwTVEFWYyKZ0cMbu8fV5bv0AGhwPrYK3CRjgiIqgiIgmOA8P5rynR3qqxDGbjkcVmiZLXfXQmV0LXkhn4j8nE9XaDQTprjrQKiMsT4JXxSsdHIxxa5jxotI/YI/gr1LgDyYzrxqv1XcsMrqeOKu+MV9urqcTU1Y2Pt0Dx6cOvd2ixzT7PvRIVqbz5v+PHONFNPzBwbUfel8ZNdYHRSTVHVutvqBJTTNG9gRlzxrXtTaqgkUT55WRRMdJI9wa1jBsuJ/QA/kqXZ9w/mvFlHZarL8ZuOORXmJ8tD9jCYnTNYQH/AIn8mkdm7DgDpzTrRCubZ/N/x44OooZ+H+Daj70PkIrr+6KOan7N1tlQZKmZw3oGMOYNb9qq3P8A5MZ15K36kuWZ11PJFQ/IKC3UNOIaajbJ17hg9uPbo3Ze5x9D3oAJtHlSIiqCIiAiIgIiICIiD//Z"
 
 function pushUser(email, username, password)
 {
+  var newid = Date.now().toString()
   users.push({
-    id: Date.now().toString(),
+    id: newid,
     email: email,
     username: username,
     password: password,
     avatar: defaultavatar
   })
-
-  fs.readFile('../logs/users.json', function (err, data) {
+  fs.readFile('../data/users.json', function (err, data) {
     var json = JSON.parse(data);
     json.push({
-      id: Date.now().toString(),
+      id: newid,
       email: email,
       username: username,
-      password: password,
-      avatar: defaultavatar
+      password: password
     });    
-    fs.writeFile("../logs/users.json", JSON.stringify(json), function(err){
+    fs.writeFile("../data/users.json", JSON.stringify(json), function(err){
       if (err) throw err;
       console.log(`User '${username}' was added to users.json at [${moment().format('DD/MM/YYYY][hh:mm')}]`);
+    });
+  })
+  fs.readFile(`../data/users/user.json`, function (err, file) {
+    var json = JSON.parse(file);
+    json.data[0].avatar = defaultavatar
+    fs.writeFile(`../data/users/${newid}.json`, JSON.stringify(json), function(err){
+      if (err) throw err;
+      console.log(`File users/${newid}.json was created at [${moment().format('DD/MM/YYYY][hh:mm')}]`);
     });
   })
 }
 
 const PORT = process.env.PORT || 5000;
-
 server.listen(PORT, () =>
 {if(verbose)
 {
@@ -243,36 +265,16 @@ server.listen(PORT, () =>
   console.log(`::`)
 
 }});
-
 io.on('connection', socket =>
 {
   console.log(`Connection Recieved at [${moment().format('hh:mm')}]`)
-
   socket.on('updateAvatar', data => {
-
-    fs.readFile('../logs/users.json', function (err, file) {
+    fs.readFile(`../data/users/${data.id}.json`, function (err, file) {
       var json = JSON.parse(file);
-      var username = undefined
-      for (var user of json) 
-      {
-        if(user.id==data.id)
-        {
-          user.avatar = data.base64
-          username = user.username
-        }
-      }  
-      for (var user of users) 
-      {
-        if(user.id==data.id)
-        {
-          user.avatar = data.base64
-        }
-      }    
-      fs.writeFile("../logs/users.json", JSON.stringify(json), function(err){
+      json.data[0].avatar = data.base64
+      fs.writeFile(`../data/users/${data.id}.json`, JSON.stringify(json), function(err){
         if (err) throw err;
-        console.log(`User '${username}' updated their avatar. [${moment().format('DD/MM/YYYY][hh:mm')}]`);
       });
     })
   });
-
 })

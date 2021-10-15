@@ -1,0 +1,7 @@
+.error {
+    background-color: #191C20;
+    padding: 3rem;
+    text-align: left;
+    max-width: 95%;
+    height: max-content;
+}
