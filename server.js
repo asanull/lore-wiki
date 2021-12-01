@@ -256,7 +256,7 @@ function pushUser(email, username, password)
   })
 }
 
-const PORT = process.env.PORT || 1;
+const PORT = 1025;
 server.listen(PORT, () =>
 {if(verbose)
 {
