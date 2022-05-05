@@ -7,5 +7,5 @@
   At the time my skill-set really wasn't up to the task and my code was rather messy and lacking compared to my current standards.
 </p>
 <p>
-  maybe I'll revisit this project one day but for now I'm making it public and letting it collect dust
+  maybe I'll revisit this project one day but for now I'm making it public and archiving it.
 </p>
